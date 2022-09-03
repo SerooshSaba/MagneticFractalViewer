@@ -7,34 +7,27 @@ public class CalculatorThread extends Thread {
 
     private ArrayList<Point> points;
     private ArrayList<Attractor> attractors;
-
     private int chuncksize;
     private int start;
     private int end;
 
-    // More point air friction -> faster render times but lower complexity
-
     public CalculatorThread( ArrayList<Point> points, ArrayList<Attractor> attractors, int dividefactor, int selector ) {
 
-        //this.points = points;
-        this.points = new ArrayList<>();
-
-        for ( Point point : points ) {
-            this.points.add( point );
-        }
-
         this.attractors = attractors;
+
+        this.points = points;
 
         // Calculate area of operation
         this.chuncksize = points.size() / dividefactor;
         this.start = this.chuncksize * ( selector - 1 );
         this.end   = this.chuncksize * ( selector );
+
     }
 
     @Override
     public void run() {
 
-        double xdir, ydir, length, attraction_force, additional_friction_force;
+        double xdir, ydir, length, attraction_force;
         double ATTRACTOR_FORCE;
 
         while ( true ) {
@@ -45,9 +38,11 @@ public class CalculatorThread extends Thread {
 
                 for (int i = this.start; i < this.end; i++) {
 
+                    Point point = points.get(i);
+
                     // Find direction vector
-                    xdir = attractor.getxposition() - points.get(i).getxposition();
-                    ydir = attractor.getyposition() - points.get(i).getyposition();
+                    xdir = attractor.getxposition() - point.getxposition();
+                    ydir = attractor.getyposition() - point.getyposition();
 
                     // Find length between point and attractor
                     length = Math.sqrt(Math.abs(xdir * xdir) + Math.abs(ydir * ydir));
@@ -56,33 +51,22 @@ public class CalculatorThread extends Thread {
                     xdir /= length;
                     ydir /= length;
 
-                    if (length > 15) {
+                    if ( length > 8 && point.isnotcaptured()) {
 
                         // Calculate attraction force between point and attractor
                         attraction_force = ATTRACTOR_FORCE / (length*length);
 
                         // Apply movement to point
-                        points.get(i).addxdirection(xdir * attraction_force );
-                        points.get(i).addydirection(ydir * attraction_force );
-                        points.get(i).simulate();
-
-                    } else {
-
-                        // How friction is applied, determines the complexity of the fractal
-                        additional_friction_force = 0.8 + (length/15) * (1-0.8);
-
-                        // Calculate force
-                        attraction_force = ATTRACTOR_FORCE / (15*15);
-
-                        // Apply attraction to point
-                        points.get(i).addxdirection(xdir * attraction_force );
-                        points.get(i).addydirection(ydir * attraction_force );
-                        points.get(i).simulate();
-
-                        // Apply additional friction on point
-                        points.get(i).deaccelerate(additional_friction_force);
+                        point.addxdirection(xdir * attraction_force );
+                        point.addydirection(ydir * attraction_force );
+                        point.simulate();
 
                     }
+                    else if ( length <= 8 && point.isnotcaptured() ) {
+                        point.capture();
+                        // get color of attactor
+                    }
+
 
                 }
             }
@@ -93,6 +77,7 @@ public class CalculatorThread extends Thread {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+
 
         }
     }

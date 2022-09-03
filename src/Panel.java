@@ -3,11 +3,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import sim.Point;
 import sim.Attractor;
 
-public class MyPanel extends JPanel {
+public class Panel extends JPanel {
 
     Timer timer;
     ArrayList<Point> points;
@@ -15,9 +14,9 @@ public class MyPanel extends JPanel {
 
     int centerx = 0;
     int centery = 0;
-    float scale = 0.3f;
+    float scale = 1;
 
-    MyPanel( ArrayList<Point> points, ArrayList<Attractor> attractors ) {
+    Panel(ArrayList<Point> points, ArrayList<Attractor> attractors ) {
         this.setPreferredSize(new Dimension(800,800));
         this.setBackground(Color.black);
 
@@ -60,15 +59,15 @@ public class MyPanel extends JPanel {
     }
 
     public void moveMouse( float x, float y ) {
-        this.centerx += x;
-        this.centery += y;
+        this.centerx += x / this.scale;
+        this.centery += y / this.scale;
     }
 
     public void scrollWheel( int value ) {
-        if ( value == -1 ) {
+        if ( value == 1 ) {
             this.scale *= 0.95;
         }
-        else if ( value == 1 ) {
+        else {
             this.scale *= 1.1;
         }
     }

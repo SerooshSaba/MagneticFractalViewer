@@ -4,15 +4,15 @@ import sim.Point;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class MyFrame extends JFrame implements MouseListener, MouseWheelListener, KeyListener {
+public class Frame extends JFrame implements MouseListener, MouseWheelListener, KeyListener {
 
-    public MyPanel panel;
+    public Panel panel;
     private int mousex = 0;
     private int mousey = 0;
 
-    public MyFrame ( ArrayList<Point> points, ArrayList<Attractor> attractors ) {
+    public Frame(ArrayList<Point> points, ArrayList<Attractor> attractors ) {
 
-        panel = new MyPanel( points, attractors );
+        panel = new Panel( points, attractors );
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.add(panel);
         this.pack();
@@ -22,7 +22,6 @@ public class MyFrame extends JFrame implements MouseListener, MouseWheelListener
         addMouseListener(this);
         addMouseWheelListener(this);
         addKeyListener(this);
-
     }
 
     @Override
