@@ -12,8 +12,17 @@ public class CalculatorThread extends Thread {
     private int start;
     private int end;
 
+    // More point air friction -> faster render times but lower complexity
+
     public CalculatorThread( ArrayList<Point> points, ArrayList<Attractor> attractors, int dividefactor, int selector ) {
-        this.points = points;
+
+        //this.points = points;
+        this.points = new ArrayList<>();
+
+        for ( Point point : points ) {
+            this.points.add( point );
+        }
+
         this.attractors = attractors;
 
         // Calculate area of operation
@@ -25,7 +34,7 @@ public class CalculatorThread extends Thread {
     @Override
     public void run() {
 
-        double xdir, ydir, length, attraction_force;
+        double xdir, ydir, length, attraction_force, additional_friction_force;
         double ATTRACTOR_FORCE;
 
         while ( true ) {
@@ -59,7 +68,8 @@ public class CalculatorThread extends Thread {
 
                     } else {
 
-                        double additional_friction_force = 0.8 + (length/15) * 0.2;
+                        // How friction is applied, determines the complexity of the fractal
+                        additional_friction_force = 0.8 + (length/15) * (1-0.8);
 
                         // Calculate force
                         attraction_force = ATTRACTOR_FORCE / (15*15);
@@ -70,14 +80,7 @@ public class CalculatorThread extends Thread {
                         points.get(i).simulate();
 
                         // Apply additional friction on point
-                        points.get(i).apply_friction(additional_friction_force);
-
-                        /*
-                        // Remove point of speed is low and distance to attractor is low
-                        if ( points.get(i).getspeed() < 5 ) {
-                            System.out.println("COUGHT");
-                        }
-                        */
+                        points.get(i).deaccelerate(additional_friction_force);
 
                     }
 
@@ -85,13 +88,11 @@ public class CalculatorThread extends Thread {
             }
 
             // REMOVE LATER
-
             try {
-                Thread.sleep(2);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
 
         }
     }

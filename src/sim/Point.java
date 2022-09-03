@@ -45,7 +45,7 @@ public class Point {
         this.direction[1] *= resistance;
     }
 
-    public void apply_friction( double resistance ) {
+    public void deaccelerate(double resistance ) {
         this.direction[0] *= resistance;
         this.direction[1] *= resistance;
     }

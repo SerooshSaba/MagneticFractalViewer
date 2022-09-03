@@ -13,13 +13,14 @@ public class main {
         for ( int y = 0; y < 800; y += 10 ) {
             for ( int x = 0; x < 800; x += 10 ) {
                 Point point = new Point( x, y );
-                point.addxdirection(0.2);
+                point.addxdirection(0);
                 points.add( point );
             }
         }
 
         attractors.add( new Attractor(400 - 100,400) );
         attractors.add( new Attractor(400 + 100,400) );
+        //attractors.add( new Attractor(400,400 + 100) );
 
         for ( Attractor attractor : attractors ) {
             for (Point point : points) {

@@ -15,7 +15,7 @@ public class MyPanel extends JPanel {
 
     int centerx = 0;
     int centery = 0;
-    float scale = 1;
+    float scale = 0.3f;
 
     MyPanel( ArrayList<Point> points, ArrayList<Attractor> attractors ) {
         this.setPreferredSize(new Dimension(800,800));
@@ -38,17 +38,21 @@ public class MyPanel extends JPanel {
         Graphics2D graphics = (Graphics2D) g;
         super.paint(graphics);
 
-        /*
-        graphics.setColor(Color.RED);
-        for ( Attractor attractor : this.attractors ) {
-            attractor.render(graphics, this.centerx, this.centery, this.scale );
-        }
-        */
-
-        graphics.setColor(Color.WHITE);
+        // Render points
+        //graphics.setColor(Color.WHITE);
+        graphics.setColor(new Color(0,255,0));
         for ( Point point : this.points ) {
             point.render(graphics, this.centerx, this.centery, this.scale );
         }
+
+        // Render canvas
+
+        // Render position and scale
+        graphics.setColor(new Color(0,255,0));
+        graphics.drawString( "x:" + this.centerx,10,750);
+        graphics.drawString( "y:" + this.centery,10,770);
+        graphics.drawString( Float.toString(this.scale),10,790);
+
     }
 
     public void invokeRender() {
@@ -56,16 +60,16 @@ public class MyPanel extends JPanel {
     }
 
     public void moveMouse( float x, float y ) {
-        this.centerx += x / this.scale;
-        this.centery += y / this.scale;
+        this.centerx += x;
+        this.centery += y;
     }
 
     public void scrollWheel( int value ) {
         if ( value == -1 ) {
-            this.scale *= 1.1;
+            this.scale *= 0.95;
         }
         else if ( value == 1 ) {
-            this.scale *= 0.95;
+            this.scale *= 1.1;
         }
     }
 

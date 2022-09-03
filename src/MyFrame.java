@@ -1,8 +1,6 @@
 import javax.swing.*;
-
 import sim.Attractor;
 import sim.Point;
-
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -24,6 +22,7 @@ public class MyFrame extends JFrame implements MouseListener, MouseWheelListener
         addMouseListener(this);
         addMouseWheelListener(this);
         addKeyListener(this);
+
     }
 
     @Override
@@ -49,24 +48,24 @@ public class MyFrame extends JFrame implements MouseListener, MouseWheelListener
     public void mouseExited(MouseEvent event) {}
 
     @Override
-    public void mouseWheelMoved(MouseWheelEvent e) {
-        this.panel.scrollWheel(e.getWheelRotation());
+    public void mouseWheelMoved(MouseWheelEvent event) {
+        this.panel.scrollWheel(event.getWheelRotation());
     }
 
     // KEYBOARD
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent event) {
 
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent event) {
         this.panel.invokeRender();
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent event) {
 
     }
 
