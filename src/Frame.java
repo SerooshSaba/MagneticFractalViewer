@@ -1,18 +1,14 @@
 import javax.swing.*;
-import sim.Attractor;
-import sim.Point;
 import java.awt.event.*;
-import java.util.ArrayList;
 
 public class Frame extends JFrame implements MouseListener, MouseWheelListener, KeyListener {
 
     public Panel panel;
-    private int mousex = 0;
-    private int mousey = 0;
+    private float mousex = 0;
+    private float mousey = 0;
 
-    public Frame(ArrayList<Point> points, ArrayList<Attractor> attractors ) {
-
-        panel = new Panel( points, attractors );
+    public Frame() {
+        panel = new Panel();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.add(panel);
         this.pack();
@@ -24,8 +20,7 @@ public class Frame extends JFrame implements MouseListener, MouseWheelListener, 
         addKeyListener(this);
     }
 
-    @Override
-    public void mouseClicked(MouseEvent event) {}
+    // MOUSE
 
     @Override
     public void mousePressed(MouseEvent event) {
@@ -35,9 +30,18 @@ public class Frame extends JFrame implements MouseListener, MouseWheelListener, 
 
     @Override
     public void mouseReleased(MouseEvent event) {
-        int xmovement = event.getX() - this.mousex;
-        int ymovement = event.getY() - this.mousey;
+        float xmovement = this.mousex - event.getX();
+        float ymovement = this.mousey - event.getY();
         this.panel.moveMouse( xmovement, ymovement );
+        this.panel.invokerecalculation();
+        this.panel.invokeRender();
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent event) {
+        this.panel.scrollWheel(event.getWheelRotation());
+        this.panel.invokerecalculation();
+        this.panel.invokeRender();
     }
 
     @Override
@@ -47,25 +51,18 @@ public class Frame extends JFrame implements MouseListener, MouseWheelListener, 
     public void mouseExited(MouseEvent event) {}
 
     @Override
-    public void mouseWheelMoved(MouseWheelEvent event) {
-        this.panel.scrollWheel(event.getWheelRotation());
-    }
+    public void mouseClicked(MouseEvent event) {}
+
 
     // KEYBOARD
 
     @Override
-    public void keyTyped(KeyEvent event) {
-
-    }
+    public void keyTyped(KeyEvent event) {}
 
     @Override
-    public void keyPressed(KeyEvent event) {
-        this.panel.invokeRender();
-    }
+    public void keyPressed(KeyEvent event) {}
 
     @Override
-    public void keyReleased(KeyEvent event) {
-
-    }
+    public void keyReleased(KeyEvent event) {}
 
 }

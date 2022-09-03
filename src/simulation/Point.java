@@ -1,11 +1,11 @@
-package sim;
+package simulation;
 import java.awt.*;
 
 public class Point {
 
     private boolean captured = false;
 
-    private double resistance = 0.999;
+    private double resistance = 0.99975;
     private double position[]  = new double[2];
     private double direction[] = new double[2];
 

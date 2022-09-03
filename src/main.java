@@ -1,11 +1,9 @@
-import sim.Attractor;
-import sim.Point;
-import threadclasses.CalculatorThread;
-import java.util.ArrayList;
-
 public class main {
     public static void main(String[] args) {
 
+        new Frame();
+
+        /*
         ArrayList<Attractor> attractors = new ArrayList<>();
         ArrayList<Point> points = new ArrayList<>();
 
@@ -26,6 +24,7 @@ public class main {
                 new Frame(points, attractors);
             }
         };
+
         panelThread.start();
 
         // Start calculator threads
@@ -38,6 +37,7 @@ public class main {
         new CalculatorThread( points, attractors, 8, 6 ).start();
         new CalculatorThread( points, attractors, 8, 7 ).start();
         new CalculatorThread( points, attractors, 8, 8 ).start();
+        */
 
     }
 }

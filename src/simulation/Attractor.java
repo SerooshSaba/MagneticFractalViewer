@@ -1,17 +1,18 @@
-package sim;
+package simulation;
+import java.awt.*;
 
 public class Attractor {
 
     private float x;
     private float y;
     private float force;
-    private int[] color;
+    private Color color;
 
-    public Attractor( float x, float y, int[] color ) {
+    public Attractor( float x, float y, Color color ) {
         this.x = x;
         this.y = y;
         this.color = color;
-        this.force = 100;
+        this.force = 150;
     }
 
     public float getxposition() {
@@ -26,7 +27,7 @@ public class Attractor {
         return this.force;
     }
 
-    public int[] getcolor() {
+    public Color getcolor() {
         return this.color;
     }
 
