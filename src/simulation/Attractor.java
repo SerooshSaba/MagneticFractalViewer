@@ -9,10 +9,11 @@ public class Attractor {
     private Color color;
 
     public Attractor( float x, float y, Color color ) {
+        System.out.println("Attractor initiated");
         this.x = x;
         this.y = y;
         this.color = color;
-        this.force = 150;
+        this.force = 50;
     }
 
     public float getxposition() {

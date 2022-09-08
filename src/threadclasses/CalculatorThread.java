@@ -1,7 +1,6 @@
 package threadclasses;
 import simulation.Attractor;
 import simulation.Point;
-
 import java.awt.*;
 
 public class CalculatorThread extends Thread {
@@ -15,6 +14,7 @@ public class CalculatorThread extends Thread {
     private int end;
 
     public CalculatorThread(Point[] points, Attractor[] attractors, Color[] colors, int dividefactor, int selector ) {
+
         this.points = points;
         this.attractors = attractors;
         this.colors = colors;
@@ -30,7 +30,7 @@ public class CalculatorThread extends Thread {
 
         double xdir, ydir, length, attraction_force;
 
-        for (int i = this.start; i < this.end; i++) {
+        for ( int i = this.start; i < this.end; i++ ) {
 
             Point point = points[i];
 
@@ -70,6 +70,5 @@ public class CalculatorThread extends Thread {
         }
 
     }
-
 
 }

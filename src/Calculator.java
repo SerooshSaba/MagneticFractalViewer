@@ -13,40 +13,59 @@ public class Calculator {
     private Point[] points;
     private Color[] colors;
 
-    private CalculatorThread[] threads = new CalculatorThread[10];
+    private CalculatorThread[] threads = new CalculatorThread[6];
 
     private int SIZE;
     private int FULL_SIZE;
 
-    public Calculator( int resolution, float centerx, float centery, float scale ) {
+    public Calculator( int resolution, float centerx, float centery, float scale, Attractor[] attractors ) {
+
+        System.out.println("Calculator init");
 
         // Instantiate attractors
-        this.attractors = new Attractor[3];
-        this.attractors[0] = new Attractor(400 - 100,400, new Color(255,39,48));
-        this.attractors[1] = new Attractor(400 + 100,400, new Color(227, 197, 21));
-        this.attractors[2] = new Attractor(400,400 + 100, new Color(0,30,255));
+        this.attractors = attractors;
 
         // Save resolution
         this.SIZE = resolution;
         this.FULL_SIZE = resolution * resolution;
 
+        this.points = new Point[this.FULL_SIZE];
+        this.colors = new Color[this.FULL_SIZE];
+
         this.centerx = centerx;
         this.centery = centery;
         this.scale = scale;
+
+        // Create points
+        int step_size = 800 / this.SIZE;
+        int i = 0;
+        for ( int y = 0; y < 800; y += step_size ) {
+            for ( int x = 0; x < 800; x += step_size ) {
+                this.points[i] = new Point( this.centerx + x * this.scale, this.centery + y * this.scale );
+                i++;
+            }
+        }
+
+    }
+
+    public void releasepoints() {
+        for ( Point point : this.points ) {
+            point.release();
+        }
     }
 
     public void calculate() {
 
-        this.points = new Point[this.FULL_SIZE];
-        this.colors = new Color[this.FULL_SIZE];
+        System.out.println( this.centerx + " " + this.centery + " " + this.scale );
 
-        // Create points
+        // Move points to current x, y and scale position
         int step_size = 800 / this.SIZE;
 
         int i = 0;
         for ( int y = 0; y < 800; y += step_size ) {
             for ( int x = 0; x < 800; x += step_size ) {
-                this.points[i] = new Point( this.centerx + x * this.scale, this.centery + y * this.scale );
+                this.points[i].setxposition( this.centerx + x * this.scale );
+                this.points[i].setyposition( this.centery + y * this.scale );
                 i++;
             }
         }
@@ -60,12 +79,9 @@ public class Calculator {
     }
 
     public void render( Graphics2D graphics ) {
-
         int size = 800 / this.SIZE;
-
         for ( int i = 0; i < this.colors.length; i++ ) {
             if ( this.colors[i] != null ) {
-
                 int x = i % this.SIZE;
                 int y = (int) ((float)i / (float)this.FULL_SIZE * this.SIZE);
 
@@ -73,7 +89,6 @@ public class Calculator {
                 graphics.fillRect( (int) (x * size), (int) (y * size), size, size);
             }
         }
-
     }
 
 }

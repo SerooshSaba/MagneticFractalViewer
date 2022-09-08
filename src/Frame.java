@@ -14,7 +14,6 @@ public class Frame extends JFrame implements MouseListener, MouseWheelListener, 
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-
         addMouseListener(this);
         addMouseWheelListener(this);
         addKeyListener(this);
@@ -30,38 +29,26 @@ public class Frame extends JFrame implements MouseListener, MouseWheelListener, 
 
     @Override
     public void mouseReleased(MouseEvent event) {
-        float xmovement = this.mousex - event.getX();
-        float ymovement = this.mousey - event.getY();
-        this.panel.moveMouse( xmovement, ymovement );
+        this.panel.moveMouse( this.mousex - event.getX(), this.mousey - event.getY() );
         this.panel.invokerecalculation();
-        this.panel.invokeRender();
     }
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent event) {
         this.panel.scrollWheel(event.getWheelRotation());
-        this.panel.invokerecalculation();
-        this.panel.invokeRender();
     }
 
     @Override
     public void mouseEntered(MouseEvent event) {}
-
     @Override
     public void mouseExited(MouseEvent event) {}
-
     @Override
     public void mouseClicked(MouseEvent event) {}
-
-
     // KEYBOARD
-
     @Override
     public void keyTyped(KeyEvent event) {}
-
     @Override
     public void keyPressed(KeyEvent event) {}
-
     @Override
     public void keyReleased(KeyEvent event) {}
 

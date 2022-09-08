@@ -28,6 +28,11 @@ public class Point {
         return this.direction[1];
     }
 
+    public void setxposition( double x ) {this.position[0] = x;}
+    public void setyposition( double y ) {this.position[1] = y;}
+    public void setxdirection( double speed ) {this.direction[0] = speed;}
+    public void setydirection( double speed ) {this.direction[1] = speed;}
+
     public void addxdirection( double x ) {this.direction[0] += x;}
     public void addydirection( double y ) {
         this.direction[1] += y;
@@ -36,6 +41,7 @@ public class Point {
     public void capture() {
         this.captured = true;
     }
+    public void release() {this.captured = false;}
 
     public boolean isnotcaptured() {
         if ( this.captured == false )
