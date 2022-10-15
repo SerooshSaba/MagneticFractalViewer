@@ -12,12 +12,13 @@ public class CalculatorThread extends Thread {
     private int chuncksize;
     private int start;
     private int end;
+    private int[] indeces;
 
-    public CalculatorThread(Point[] points, Attractor[] attractors, Color[] colors, int dividefactor, int selector ) {
-
+    public CalculatorThread(Point[] points, Attractor[] attractors, Color[] colors, int dividefactor, int selector, int[] indeces  ) {
         this.points = points;
         this.attractors = attractors;
         this.colors = colors;
+        this.indeces = indeces;
 
         // Calculate area of operation
         this.chuncksize = points.length / dividefactor;
@@ -32,7 +33,7 @@ public class CalculatorThread extends Thread {
 
         for ( int i = this.start; i < this.end; i++ ) {
 
-            Point point = points[i];
+            Point point = points[this.indeces[i]];
 
             while ( point.isnotcaptured() ) {
                 for (Attractor attractor : this.attractors) {
@@ -61,7 +62,7 @@ public class CalculatorThread extends Thread {
                     }
                     else if ( length <= 8 ) {
                         point.capture();
-                        this.colors[i] = attractor.getcolor();
+                        this.colors[this.indeces[i]] = attractor.getcolor();
                     }
 
                 }

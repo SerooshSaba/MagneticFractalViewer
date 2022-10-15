@@ -20,7 +20,6 @@ public class Frame extends JFrame implements MouseListener, MouseWheelListener, 
     }
 
     // MOUSE
-
     @Override
     public void mousePressed(MouseEvent event) {
         this.mousex = event.getX();

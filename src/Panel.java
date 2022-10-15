@@ -9,8 +9,6 @@ import java.awt.event.ActionListener;
 public class Panel extends JPanel {
 
     private Attractor[] attractors;
-    private Point[] points;
-
     private Timer timer;
 
     private float centerx = 0;
@@ -20,9 +18,9 @@ public class Panel extends JPanel {
     private Calculator calculator;
 
     Panel() {
-        this.setPreferredSize(new Dimension(800,800));
+        this.setPreferredSize(new Dimension(1000,1000));
 
-        this.timer = new Timer(50, new ActionListener(){
+        this.timer = new Timer(100, new ActionListener(){
             public void actionPerformed(ActionEvent e) {
                 repaint();
             }
@@ -30,12 +28,12 @@ public class Panel extends JPanel {
         timer.start();
 
         this.attractors = new Attractor[4];
-        this.attractors[0] = new Attractor(400 - 100,400, new Color(72, 56,  56));
-        this.attractors[1] = new Attractor(400 + 100,400, new Color(66, 133, 91));
-        this.attractors[2] = new Attractor(400 - 100,400 + 100, new Color(210, 215,159));
-        this.attractors[3] = new Attractor(400 + 100,400 + 100, new Color(255, 50, 50));
+        this.attractors[0] = new Attractor(500 - 100,500, new Color(72, 56,  56));
+        this.attractors[1] = new Attractor(500 + 100,500, new Color(66, 133, 91));
+        this.attractors[2] = new Attractor(500 - 100,500 + 100, new Color(210, 215,159));
+        this.attractors[3] = new Attractor(500 + 100,500 + 100, new Color(255, 50, 50));
 
-        this.calculator = new Calculator(200, centerx, centery, scale, attractors );
+        this.calculator = new Calculator( centerx, centery, scale, attractors );
         this.calculator.calculate();
     }
 
@@ -50,7 +48,7 @@ public class Panel extends JPanel {
     }
 
     public void invokerecalculation() {
-        this.calculator = new Calculator(200, centerx, centery, scale, attractors );
+        this.calculator = new Calculator( centerx, centery, scale, attractors );
         //this.calculator.releasepoints();
         this.calculator.calculate();
     }
